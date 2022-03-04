@@ -1,0 +1,48 @@
+version: '2.1'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: elasticsearch
+    volumes:
+    - ./esdata:/usr/share/elasticsearch/data
+    ports:
+    - 9300:9300
+    - 9200:9200
+#docker run --name zmes -v /home/esdata:/usr/share/elasticsearch/data -p 9200:9200 -p 9300:9300 -e ES_JAVA_OPTS="-Xms356m -Xmx356m" -e "discovery.type=single-node" -d  docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.7.0
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_URL: "http://elasticsearch:9300"
+    ports:
+    - 5601:5601
+#docker run --name zmkibana -p 5601:5601 -e ELASTICSEARCH_URL=http://zmes:9300 -d docker.elastic.co/kibana/kibana:7.7.0
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.7.0
+    container_name: logstash
+    command:
+      logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+    - ./config:/etc/logstash/conf.d.
+    ports:
+    - "5000:5000"
+#docker run --name logstash -p 5000:5000 -e ELASTICSEARCH_URL=http://zmes:9300 -e JVM_OPTIONS="-Xms356m -Xmx356m" -d docker.elastic.co/logstash/logstash:7.7.0
+
+#    NOTE If you see an error 137 exit code with  <container_name> container on
+#your console while executing the  docker-compose command, visit the follow-
+#ing link to increase the memory for Docker: https://www.petefreitag.com/
+#item/848.cfm
+
+networks:
+  backend:
+    driver: bridge
+    
+# docker pull mysql:8.0.28-oracle
+# docker run --name zmmysql -v /宿主目录:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=zm474577048 -d mysql:8.0.28-oracle 
+# docker exec -it a773e5260704 /bin/bash
+#create user 'zhangming' identified with mysql_native_password by 'zm@474577048';
+#grant all privileges on *.* to 'zhangming';
+#flush privileges;
+#connect to local MySQL server through socket  /var/lib/mysql/mysql.sock     mysql -h 127.0.0.1 -P 3306 -u root -p
+
+#mvn clean package dockerfile:build && docker-compose -f docker/docker-compose.yml up
