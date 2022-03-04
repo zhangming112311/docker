@@ -10,7 +10,7 @@ services:
     ports:
     - 9300:9300
     - 9200:9200
-#vim /etc/sysctl.conf  ���� vm.max_map_count=262144    
+#vim /etc/sysctl.conf  加入 vm.max_map_count=262144    
 #docker run --name zmes -v /home/esdata:/usr/share/elasticsearch/data -p 9200:9200 -p 9300:9300 -e ES_JAVA_OPTS="-Xms356m -Xmx356m" -e "discovery.type=single-node" -d  docker.elastic.co/elasticsearch/elasticsearch:7.7.0
   kibana:
     image: docker.elastic.co/kibana/kibana:7.7.0
@@ -41,7 +41,7 @@ networks:
     driver: bridge
     
 # docker pull mysql:8.0.28-oracle
-# docker run --name zmmysql -v /宿主目录:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=zm474577048 -d mysql:8.0.28-oracle 
+# docker run --name zmmysql -v /瀹夸富鐩綍:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=zm474577048 -d mysql:8.0.28-oracle 
 # docker exec -it a773e5260704 /bin/bash
 #create user 'zhangming' identified with mysql_native_password by 'zm@474577048';
 #grant all privileges on *.* to 'zhangming';
