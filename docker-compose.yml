@@ -5,9 +5,8 @@ services:
     container_name: elasticsearch
     environment:
       - "discovery.type=single-node"
-      
     volumes:
-    - ../esdata:/usr/share/elasticsearch/data
+    - ./esdata:/usr/share/elasticsearch/data
     ports:
     - 9300:9300
     - 9200:9200
