@@ -15,6 +15,9 @@ services:
     image: iremember/eureka:latest
     ports:
        - "8070:8070"
+    depends_on:
+      config:
+        condition: service_started
     networks:
       backend:
         aliases:
@@ -27,8 +30,8 @@ services:
     environment:
 #      PROFILE: "default"
       SERVER_PORT: "8072"
-      CONFIGSERVER_URI: "http://configserver:8071"
-      EUREKASERVER_URI: "http://eurekaserver:8070/eureka/"
+      CONFIGSERVER_URI: "http://config:8071"
+      EUREKASERVER_URI: "http://eureka:8070/eureka/"
       EUREKASERVER_PORT: "8070"
       CONFIGSERVER_PORT: "8071"
     depends_on:
