@@ -1,0 +1,47 @@
+version: '2.1'
+services:
+  config:
+    image: iremember/config:latest
+    ports:
+       - "8071:8071"
+    environment:
+      ENCRYPT_KEY: ${ENCRYPT_KEY} #"IMSYMMETRIC"
+    networks:
+      backend:
+        aliases:
+          - "config"
+
+  eureka:
+    image: iremember/eureka:latest
+    ports:
+       - "8070:8070"
+    networks:
+      backend:
+        aliases:
+          - "eurekaServer"
+  gateway:
+    image: iremember/gateway:latest
+    container_name: gateway
+    ports:
+      - "8072:8072"
+    environment:
+#      PROFILE: "default"
+      SERVER_PORT: "8072"
+      CONFIGSERVER_URI: "http://configserver:8071"
+      EUREKASERVER_URI: "http://eurekaserver:8070/eureka/"
+      EUREKASERVER_PORT: "8070"
+      CONFIGSERVER_PORT: "8071"
+    depends_on:
+      config:
+        condition: service_started
+      eureka:
+        condition: service_started
+    networks:
+      backend:
+        aliases:
+          - "gateway"
+networks:
+  backend:
+    driver: bridge
+
+#mvn clean package dockerfile:build && docker-compose -f docker/docker-compose.yml up

@@ -41,7 +41,7 @@ networks:
     driver: bridge
     
 # docker pull mysql:8.0.28-oracle
-# docker run --name zmmysql -v /瀹夸富鐩綍:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=zm474577048 -d mysql:8.0.28-oracle 
+# docker run --name zmmysql -v /存储目录:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=zm474577048 -d mysql:8.0.28-oracle 
 # docker exec -it a773e5260704 /bin/bash
 #create user 'zhangming' identified with mysql_native_password by 'zm@474577048';
 #grant all privileges on *.* to 'zhangming';
