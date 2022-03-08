@@ -1,7 +1,8 @@
-version: '2.1'
+version: '2.2.3'
 services:
   config:
     image: iremember/config:latest
+    container_name: config
     ports:
        - "8071:8071"
     environment:
@@ -13,6 +14,7 @@ services:
 
   eureka:
     image: iremember/eureka:latest
+    container_name: eureka
     ports:
        - "8070:8070"
     depends_on:
@@ -21,7 +23,7 @@ services:
     networks:
       backend:
         aliases:
-          - "eurekaServer"
+          - "eureka"
   gateway:
     image: iremember/gateway:latest
     container_name: gateway
