@@ -1,4 +1,4 @@
-version: '2.2.3'
+version: '2.1'
 services:
   config:
     image: iremember/config:latest
@@ -17,9 +17,12 @@ services:
     container_name: eureka
     ports:
        - "8070:8070"
+    volumes:
+    - ./wait-for-it.sh:/wait-for-it.sh
     depends_on:
       config:
         condition: service_started
+    command: ["/wait-for-it.sh", "config:8071", "--","java", "org.springframework.boot.loader.JarLauncher"]
     networks:
       backend:
         aliases:
@@ -29,6 +32,8 @@ services:
     container_name: gateway
     ports:
       - "8072:8072"
+    volumes:
+    - ./wait-for-it.sh:/wait-for-it.sh
     environment:
 #      PROFILE: "default"
       SERVER_PORT: "8072"
@@ -41,6 +46,7 @@ services:
         condition: service_started
       eureka:
         condition: service_started
+    command: ["/wait-for-it.sh", "eureka:8070", "--","java", "org.springframework.boot.loader.JarLauncher"]
     networks:
       backend:
         aliases:
