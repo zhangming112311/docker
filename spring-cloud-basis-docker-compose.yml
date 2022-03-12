@@ -104,7 +104,7 @@ services:
       - elasticsearch
     environment: 
       - STORAGE_TYPE=elasticsearch
-      - "ES_HOSTS=elasticsearch:9300"
+      - "ES_HOSTS=elasticsearch:9200"
       - TZ=Asia/Shanghai
     ports:
       - "9411:9411"
