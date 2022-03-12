@@ -10,6 +10,10 @@ services:
     ports:
     - 9300:9300
     - 9200:9200
+    networks:
+      backend:
+        aliases:
+          - "elasticsearch"
 #vim /etc/sysctl.conf  加入 vm.max_map_count=262144    
 #docker run --name zmes -v /home/esdata:/usr/share/elasticsearch/data -p 9200:9200 -p 9300:9300 -e ES_JAVA_OPTS="-Xms356m -Xmx356m" -e "discovery.type=single-node" -d  docker.elastic.co/elasticsearch/elasticsearch:7.7.0
   kibana:
