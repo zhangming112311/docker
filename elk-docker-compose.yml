@@ -21,7 +21,7 @@ services:
     image: docker.elastic.co/kibana/kibana:7.7.0
     container_name: kibana
     environment:
-      - ELASTICSEARCH_URL: "http://elasticsearch:9300"
+      - ELASTICSEARCH_URL=http://elasticsearch:9300
       - TZ=Asia/Shanghai
     ports:
     - 5601:5601
