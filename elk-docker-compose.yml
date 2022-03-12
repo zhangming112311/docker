@@ -35,7 +35,20 @@ services:
 #your console while executing the  docker-compose command, visit the follow-
 #ing link to increase the memory for Docker: https://www.petefreitag.com/
 #item/848.cfm
-
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    depends_on:
+    - elasticsearch
+    environment:
+    - STORAGE_TYPE=elasticsearch
+    - "ES_HOSTS=elasticsearch:9300"
+    ports:
+    - 9411: 9411
+    networks:
+      backend:
+        aliases:
+        - "zipkin"
 networks:
   backend:
     driver: bridge
