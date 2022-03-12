@@ -6,7 +6,8 @@ services:
     ports:
        - "8071:8071"
     environment:
-      ENCRYPT_KEY: ${ENCRYPT_KEY} #"IMSYMMETRIC"
+      - ENCRYPT_KEY=${ENCRYPT_KEY} #"IMSYMMETRIC"
+      - TZ=Asia/Shanghai
     networks:
       backend:
         aliases:
@@ -15,6 +16,8 @@ services:
   eureka:
     image: iremember/eureka:latest
     container_name: eureka
+    environment:
+      - TZ=Asia/Shanghai
     ports:
        - "8070:8070"
     depends_on:
@@ -31,11 +34,12 @@ services:
       - "8072:8072"
     environment:
 #      PROFILE: "default"
-      SERVER_PORT: "8072"
-      CONFIGSERVER_URI: "http://config:8071"
-      EUREKASERVER_URI: "http://eureka:8070/eureka/"
-      EUREKASERVER_PORT: "8070"
-      CONFIGSERVER_PORT: "8071"
+      - SERVER_PORT=8072
+      - CONFIGSERVER_URI=http://config:8071
+      - EUREKASERVER_URI=http://eureka:8070/eureka/
+      - EUREKASERVER_PORT=8070
+      - CONFIGSERVER_PORT=8071
+      - TZ=Asia/Shanghai
     depends_on:
       config:
         condition: service_started
