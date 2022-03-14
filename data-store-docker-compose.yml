@@ -1,0 +1,31 @@
+version: '2.1'
+services:
+  kafka:
+    image: wurstmeister/kafka:latest
+    container_name: kafka
+    environment: 
+      - TZ=Asia/Shanghai
+      - KAFKA_ADVERTISED_PORT=9092 
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181  
+      - KAFKA_ADVERTISED_HOST_NAME=kafka 
+      - KAFKA_ADVERTISED_PORT=9092
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+    - "9092:9092"
+
+  zipkin: 
+    image: wurstmeister/zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      message:
+        aliases:
+          - "zookeeper"
+networks:
+  message:
+    driver: bridge
+    
+#kafka docker run --name zmkfk -p 9092:9092 -v /var/run/docker.sock:/var/run/docker.sock -e KAFKA_ADVERTISED_PORT=9092 -e KAFKA_ZOOKEEPER_CONNECT=182.61.45.76:2181  -e KAFKA_ADVERTISED_HOST_NAME=kafka -e KAFKA_ADVERTISED_PORT=9092 -d  wurstmeister/kafka:latest
+#zk docker run --name zmzk -p 2181:2181  -d wurstmeister/zookeeper:latest

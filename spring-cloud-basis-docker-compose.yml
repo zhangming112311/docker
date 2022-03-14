@@ -19,6 +19,8 @@ services:
     container_name: eureka
     environment:
       - TZ=Asia/Shanghai
+      - SPRING_CLOUD_CONFIG_PASSWORD=${SPRING_SECURITY_USER_PASSWORD} #"SPRINGSECURITYUSERPASSWORD"
+      
     ports:
        - "8070:8070"
     depends_on:
@@ -41,6 +43,7 @@ services:
       - EUREKASERVER_PORT=8070
       - CONFIGSERVER_PORT=8071
       - TZ=Asia/Shanghai
+      - SPRING_CLOUD_CONFIG_PASSWORD=${SPRING_SECURITY_USER_PASSWORD} #"SPRINGSECURITYUSERPASSWORD"
     depends_on:
       config:
         condition: service_started
