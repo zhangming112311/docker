@@ -7,6 +7,7 @@ services:
        - "8071:8071"
     environment:
       - ENCRYPT_KEY=${ENCRYPT_KEY} #"IMSYMMETRIC"
+      - SPRING_SECURITY_USER_PASSWORD=${SPRING_SECURITY_USER_PASSWORD} #"SPRINGSECURITYUSERPASSWORD"
       - TZ=Asia/Shanghai
     networks:
       backend:
@@ -96,7 +97,7 @@ services:
 #    NOTE If you see an error 137 exit code with  <container_name> container on
 #your console while executing the  docker-compose command, visit the follow-
 #ing link to increase the memory for Docker: https://www.petefreitag.com/
-#item/848.cfm
+#item/848.cfm 
   zipkin: 
     image: openzipkin/zipkin 
     container_name: zipkin
