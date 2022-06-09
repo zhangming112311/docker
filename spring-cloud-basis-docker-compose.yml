@@ -120,6 +120,21 @@ networks:
   backend:
     driver: bridge
     
+  mysql:
+    image: mysql:8.0.28-oracle
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=zm474577048
+    volumes:
+    - /alidata/docker/mysql:/var/lib/mysql
+    - ./init-mysql-db:/var/lib/mysql
+    ports:
+    - 3306:3306
+    networks:
+      backend:
+        aliases:
+          - "mysql"
+    
 # docker pull mysql:8.0.28-oracle
 # docker run --name zmmysql -v /存储目录:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=zm474577048 -d mysql:8.0.28-oracle 
 # docker exec -it a773e5260704 /bin/bash
