@@ -127,7 +127,7 @@ networks:
       - MYSQL_ROOT_PASSWORD=zm474577048
     volumes:
     - /alidata/docker/mysql:/var/lib/mysql
-    - ./init-mysql-db:/var/lib/mysql
+    - ./init-mysql-db:/docker-entrypoint-initdb.d
     ports:
     - 3306:3306
     networks:
