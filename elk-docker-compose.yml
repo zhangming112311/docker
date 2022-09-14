@@ -15,6 +15,8 @@ services:
       backend:
         aliases:
           - "elasticsearch"
+          
+
 #vim /etc/sysctl.conf  加入 vm.max_map_count=262144    
 #docker run --name zmes -v /home/esdata:/usr/share/elasticsearch/data -p 9200:9200 -p 9300:9300 -e ES_JAVA_OPTS="-Xms356m -Xmx356m" -e "discovery.type=single-node" -d  docker.elastic.co/elasticsearch/elasticsearch:7.7.0
   kibana:
@@ -41,6 +43,10 @@ services:
     - ./config:/etc/logstash/conf.d
     ports:
     - "5000:5000"
+    networks:
+      backend:
+        aliases:
+          - "logstash"
 #docker run --name logstash -p 5000:5000 -e ELASTICSEARCH_URL=http://zmes:9300 -e JVM_OPTIONS="-Xms356m -Xmx356m" -d docker.elastic.co/logstash/logstash:7.7.0
 
 #    NOTE If you see an error 137 exit code with  <container_name> container on
